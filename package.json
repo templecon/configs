@@ -1,0 +1,48 @@
+{
+    "name": "@concertypin/config",
+    "version": "0.1.0",
+    "type": "module",
+    "license": "Apache-2.0",
+    "author": {
+        "name": "templecon",
+        "url": "https://github.com/templecon"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/templecon/configs.git"
+    },
+    "files": [
+        "oxlint/",
+        "README.md",
+        "LICENSE"
+    ],
+    "exports": {
+        "./oxlint": {
+            "types": "./oxlint/index.d.ts",
+            "default": "./oxlint/index.js"
+        },
+        "./oxlint/frontend": {
+            "types": "./oxlint/frontend.d.ts",
+            "default": "./oxlint/frontend.js"
+        }
+    },
+    "scripts": {
+        "lint": "oxlint -c oxlint.config.ts .",
+        "test": "node --test tests/base.test.js",
+        "pack:check": "node tests/pack-check.mjs"
+    },
+    "engines": {
+        "node": ">=20.19.0"
+    },
+    "packageManager": "pnpm@10.17.1+sha512.17c560fca4867ae9473a3899ad84a88334914f379be46d455cbf92e5cf4b39d34985d452d2583baf19967fa76cb5c17bc9e245529d0b98745721aa7200ecaf7a",
+    "publishConfig": {
+        "access": "public"
+    },
+    "devDependencies": {
+        "oxlint": "^1.76.0",
+        "prettier": "^3.9.6"
+    },
+    "peerDependencies": {
+        "oxlint": ">=1.47.0 <2"
+    }
+}
