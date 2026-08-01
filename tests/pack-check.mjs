@@ -93,7 +93,10 @@ try {
         join(projectDirectory, "oxlint.config.mjs"),
         [
             'import base from "@concertypin/config/oxlint";',
-            "export default { extends: [base] };",
+            "export default {",
+            "  extends: [base],",
+            '  rules: { "no-console": "error", "no-unused-vars": "error" },',
+            "};",
         ].join("\n")
     );
     writeFileSync(
@@ -114,6 +117,28 @@ try {
         0,
         validResult.stderr || validResult.stdout
     );
+
+    writeFileSync(
+        join(projectDirectory, "valid.d.ts"),
+        "declare const unusedDeclaration: string;\n"
+    );
+    mkdirSync(join(projectDirectory, "scripts"));
+    writeFileSync(
+        join(projectDirectory, "scripts", "console.ts"),
+        'console.log("allowed in scripts");\n'
+    );
+
+    for (const filename of ["valid.d.ts", "scripts/console.ts"]) {
+        const overrideResult = spawnPnpm(
+            ["exec", "oxlint", "-c", "oxlint.config.mjs", filename],
+            projectDirectory
+        );
+        assert.equal(
+            overrideResult.status,
+            0,
+            overrideResult.stderr || overrideResult.stdout
+        );
+    }
 
     const invalidResult = spawnPnpm(
         ["exec", "oxlint", "-c", "oxlint.config.mjs", "invalid.ts"],
