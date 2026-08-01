@@ -3,6 +3,7 @@ import { describe, it } from "node:test";
 
 import base from "@concertypin/config/oxlint";
 import frontend from "@concertypin/config/oxlint/frontend";
+import scripts from "@concertypin/config/oxlint/scripts";
 
 describe("@concertypin/config/oxlint", () => {
     it("exports the exact six-template rule intersection", () => {
@@ -15,7 +16,7 @@ describe("@concertypin/config/oxlint", () => {
 });
 
 describe("@concertypin/config/oxlint overrides", () => {
-    it("exports shared declaration and script exceptions", () => {
+    it("exports the shared declaration exception", () => {
         assert.deepEqual(base.overrides, [
             {
                 files: ["**/*.d.ts"],
@@ -23,6 +24,12 @@ describe("@concertypin/config/oxlint overrides", () => {
                     "no-unused-vars": "off",
                 },
             },
+        ]);
+        assert.deepEqual(frontend.overrides, base.overrides);
+    });
+
+    it("exports the script exception separately", () => {
+        assert.deepEqual(scripts.overrides, [
             {
                 files: ["scripts/**/*.ts"],
                 rules: {
@@ -30,7 +37,6 @@ describe("@concertypin/config/oxlint overrides", () => {
                 },
             },
         ]);
-        assert.deepEqual(frontend.overrides, base.overrides);
     });
 });
 

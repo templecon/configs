@@ -1,6 +1,6 @@
 {
     "name": "@concertypin/config",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "type": "module",
     "license": "Apache-2.0",
     "author": {
@@ -24,6 +24,10 @@
         "./oxlint/frontend": {
             "types": "./oxlint/frontend.d.ts",
             "default": "./oxlint/frontend.js"
+        },
+        "./oxlint/scripts": {
+            "types": "./oxlint/scripts.d.ts",
+            "default": "./oxlint/scripts.js"
         }
     },
     "scripts": {

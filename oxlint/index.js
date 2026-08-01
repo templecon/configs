@@ -131,12 +131,6 @@ const config = {
                 "no-unused-vars": "off",
             },
         },
-        {
-            files: ["scripts/**/*.ts"],
-            rules: {
-                "no-console": "off",
-            },
-        },
     ],
 };
 
