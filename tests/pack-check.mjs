@@ -77,10 +77,9 @@ try {
             [
                 'import base from "@concertypin/config/oxlint";',
                 'import frontend from "@concertypin/config/oxlint/frontend";',
-                'import scripts from "@concertypin/config/oxlint/scripts";',
                 'if (base.rules["no-var"] !== "error") process.exit(1);',
                 'if (frontend.rules["no-console"] !== "warn") process.exit(1);',
-                'if (scripts.overrides[0].rules["no-console"] !== "off") process.exit(1);',
+                'if (base.overrides[1].rules["no-console"] !== "off") process.exit(1);',
             ].join("\n"),
         ],
         { cwd: projectDirectory, encoding: "utf8" }
@@ -95,9 +94,8 @@ try {
         join(projectDirectory, "oxlint.config.mjs"),
         [
             'import base from "@concertypin/config/oxlint";',
-            'import scripts from "@concertypin/config/oxlint/scripts";',
             "export default {",
-            "  extends: [base, scripts],",
+            "  extends: [base],",
             '  rules: { "no-console": "error", "no-unused-vars": "error" },',
             "};",
         ].join("\n")
