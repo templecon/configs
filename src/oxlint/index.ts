@@ -1,11 +1,10 @@
 // @concertypin/config/oxlint — Shared base Oxlint ruleset
 // Auto-derived from the 6-way intersection of non-Svelte template aggregators.
-// No repo-specific overrides — those belong in consumer oxlint.config.ts.
+// Includes cross-template file-pattern exceptions.
 
-/** @import { OxlintConfig } from "oxlint" */
+import type { OxlintConfig } from "oxlint";
 
-/** @type {OxlintConfig} */
-const config = {
+const config: OxlintConfig = {
     rules: {
         "@typescript-eslint/await-thenable": "error",
         "@typescript-eslint/ban-ts-comment": "warn",
@@ -124,6 +123,20 @@ const config = {
         "prefer-template": "warn",
         "object-shorthand": "warn",
     },
+    overrides: [
+        {
+            files: ["**/*.d.ts"],
+            rules: {
+                "no-unused-vars": "off",
+            },
+        },
+        {
+            files: ["scripts/**/*.ts"],
+            rules: {
+                "no-console": "off",
+            },
+        },
+    ],
 };
 
 export default config;
