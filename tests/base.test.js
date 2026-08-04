@@ -14,6 +14,26 @@ describe("@concertypin/config/oxlint", () => {
     });
 });
 
+describe("@concertypin/config/oxlint overrides", () => {
+    it("exports the shared declaration exception", () => {
+        assert.deepEqual(base.overrides, [
+            {
+                files: ["**/*.d.ts"],
+                rules: {
+                    "no-unused-vars": "off",
+                },
+            },
+            {
+                files: ["scripts/**/*.ts"],
+                rules: {
+                    "no-console": "off",
+                },
+            },
+        ]);
+        assert.deepEqual(frontend.overrides, base.overrides);
+    });
+});
+
 describe("@concertypin/config/oxlint/frontend", () => {
     it("extends the base rules with the React and Solid delta", () => {
         assert.equal(Object.keys(frontend.rules).length, 118);

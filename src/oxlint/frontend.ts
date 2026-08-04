@@ -4,10 +4,9 @@
 
 import base from "./index.js";
 
-/** @import { OxlintConfig } from "oxlint" */
+import type { OxlintConfig } from "oxlint";
 
-/** @type {OxlintConfig} */
-const config = {
+const config: OxlintConfig = {
     ...base,
     rules: {
         ...base.rules,
