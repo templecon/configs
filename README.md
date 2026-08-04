@@ -42,7 +42,10 @@ import { defineConfig } from "oxfmt";
 
 export default defineConfig({
     ...base,
-    // repo-specific ignore patterns and overrides
+    overrides: [
+        ...base.overrides,
+        // repo-specific overrides
+    ],
 });
 ```
 
@@ -55,8 +58,6 @@ The shared formatter contract uses four spaces by default, two spaces for YAML, 
 | `@concertypin/config/oxlint`          | 116   | Shared template intersection and file-pattern exceptions         |
 | `@concertypin/config/oxlint/frontend` | 118   | Base + `typescript/no-deprecated` + `no-console` outside scripts |
 | `@concertypin/config/oxfmt`           | —     | Shared Oxfmt formatting contract                                 |
-
-See [TODO.md](./TODO.md) for planned extensions.
 
 ## License
 
