@@ -22,6 +22,8 @@ export default defineConfig({
 
 The factory returns a fresh copy of the shared rules. Add project-specific rules and overrides directly in the root config. The base preset allows `console` in `scripts/**/*.ts`, unused declarations in `**/*.d.ts`, and forbids parent-relative imports only in `src/**/*` and `tests/**/*`.
 
+The preset explicitly keeps Oxlint's default `unicorn`, `typescript`, and `oxc` plugins enabled alongside `import`. It can be used directly as the root config (`export default createBase()`) or from `extends` without losing those plugins.
+
 ### Oxlint + Frontend (React / Solid / Svelte)
 
 ```ts

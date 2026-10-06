@@ -5,7 +5,7 @@
 import type { OxlintConfig } from "oxlint";
 
 const defaults: OxlintConfig = {
-    plugins: ["import"],
+    plugins: ["unicorn", "typescript", "oxc", "import"],
     rules: {
         "@typescript-eslint/await-thenable": "error",
         "@typescript-eslint/ban-ts-comment": "warn",

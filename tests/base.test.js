@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execSync } from "node:child_process";
 import { describe, it } from "node:test";
 
 import createOxlintConfig from "@concertypin/config/oxlint";
@@ -16,7 +17,12 @@ describe("@concertypin/config/oxlint", () => {
         assert.equal(base.rules["@typescript-eslint/no-shadow"], undefined);
         assert.equal(base.rules["no-console"], undefined);
         assert.equal(base.rules["typescript/no-deprecated"], undefined);
-        assert.deepEqual(base.plugins, ["import"]);
+        assert.deepEqual(base.plugins, [
+            "unicorn",
+            "typescript",
+            "oxc",
+            "import",
+        ]);
         assert.equal(
             base.rules["import/no-relative-parent-imports"],
             undefined
@@ -57,11 +63,62 @@ describe("@concertypin/config/oxlint/frontend", () => {
         assert.equal(frontend.rules["no-console"], "warn");
         assert.equal(frontend.rules["typescript/no-deprecated"], "error");
         assert.equal(frontend.rules["tailwindcss/no-unknown-classes"], "error");
-        assert.deepEqual(frontend.plugins, ["import"]);
+        assert.deepEqual(frontend.plugins, [
+            "unicorn",
+            "typescript",
+            "oxc",
+            "import",
+        ]);
         assert.deepEqual(frontend.jsPlugins, ["oxlint-tailwindcss"]);
         assert.deepEqual(frontend.settings.tailwindcss, {
             entryPoint: "src/index.css",
         });
+    });
+});
+
+describe("@concertypin/config/oxlint direct config usage", () => {
+    it("keeps default plugins when the factory is the root config", () => {
+        const resolved = JSON.parse(
+            execSync(
+                "pnpm exec oxlint --config tests/oxlint-direct.config.ts --print-config tests/valid.ts",
+                { encoding: "utf8" }
+            )
+        );
+
+        assert.deepEqual(resolved.plugins, [
+            "unicorn",
+            "typescript",
+            "oxc",
+            "import",
+        ]);
+        assert.equal(resolved.rules["typescript/no-floating-promises"], "deny");
+        assert.equal(
+            resolved.rules["oxc/bad-array-method-on-arguments"],
+            "warn"
+        );
+        assert.equal(resolved.rules["unicorn/no-new-array"], "warn");
+    });
+
+    it("keeps default plugins when the factory is extended", () => {
+        const resolved = JSON.parse(
+            execSync(
+                "pnpm exec oxlint --config oxlint.config.ts --print-config tests/valid.ts",
+                { encoding: "utf8" }
+            )
+        );
+
+        assert.deepEqual(resolved.plugins, [
+            "unicorn",
+            "typescript",
+            "oxc",
+            "import",
+        ]);
+        assert.equal(resolved.rules["typescript/no-floating-promises"], "deny");
+        assert.equal(
+            resolved.rules["oxc/bad-array-method-on-arguments"],
+            "warn"
+        );
+        assert.equal(resolved.rules["unicorn/no-new-array"], "warn");
     });
 });
 
