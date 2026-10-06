@@ -1,6 +1,6 @@
 {
     "name": "@concertypin/config",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "type": "module",
     "license": "MIT",
     "author": {
@@ -28,6 +28,10 @@
         "./oxfmt": {
             "types": "./dist/oxfmt/index.d.ts",
             "default": "./dist/oxfmt/index.js"
+        },
+        "./oxfmt/frontend": {
+            "types": "./dist/oxfmt/frontend.d.ts",
+            "default": "./dist/oxfmt/frontend.js"
         }
     },
     "scripts": {
@@ -44,10 +48,10 @@
         "access": "public"
     },
     "devDependencies": {
-        "oxfmt": "^0.62.0",
-        "oxlint": "^1.76.0",
-        "tsdown": "^0.22.14",
-        "typescript": "^5.9.3"
+        "oxfmt": "^0.72.0",
+        "oxlint": "^1.87.0",
+        "tsdown": "^0.23.0",
+        "typescript": "^6.0.3"
     },
     "peerDependencies": {
         "oxfmt": ">=0.62.0 <1",

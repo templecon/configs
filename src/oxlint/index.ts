@@ -4,7 +4,8 @@
 
 import type { OxlintConfig } from "oxlint";
 
-const config: OxlintConfig = {
+const defaults: OxlintConfig = {
+    plugins: ["unicorn", "typescript", "oxc", "import"],
     rules: {
         "@typescript-eslint/await-thenable": "error",
         "@typescript-eslint/ban-ts-comment": "warn",
@@ -51,17 +52,13 @@ const config: OxlintConfig = {
         "no-array-constructor": "error",
         "no-async-promise-executor": "error",
         "no-case-declarations": "warn",
-        "no-class-assign": "off",
         "no-compare-neg-zero": "error",
         "no-cond-assign": "error",
-        "no-const-assign": "off",
         "no-constant-binary-expression": "error",
         "no-constant-condition": "warn",
         "no-control-regex": "warn",
         "no-debugger": "warn",
-        "no-dupe-class-members": "off",
         "no-dupe-else-if": "error",
-        "no-dupe-keys": "off",
         "no-duplicate-case": "error",
         "no-empty": "warn",
         "no-empty-character-class": "error",
@@ -70,26 +67,18 @@ const config: OxlintConfig = {
         "no-ex-assign": "error",
         "no-extra-boolean-cast": "warn",
         "no-fallthrough": "warn",
-        "no-func-assign": "off",
-        "no-import-assign": "off",
         "no-invalid-regexp": "error",
         "no-irregular-whitespace": "warn",
         "no-loss-of-precision": "error",
         "no-misleading-character-class": "error",
-        "no-new-native-nonconstructor": "off",
         "no-nonoctal-decimal-escape": "error",
-        "no-obj-calls": "off",
         "no-prototype-builtins": "warn",
-        "no-redeclare": "off",
         "no-regex-spaces": "warn",
         "no-self-assign": "warn",
-        "no-setter-return": "off",
         "no-shadow-restricted-names": "error",
         "no-sparse-arrays": "error",
-        "no-this-before-super": "off",
         "no-unassigned-vars": "warn",
         "no-unsafe-finally": "error",
-        "no-unsafe-negation": "off",
         "no-unsafe-optional-chaining": "error",
         "no-unused-expressions": "warn",
         "no-unused-labels": "warn",
@@ -106,7 +95,7 @@ const config: OxlintConfig = {
         "require-yield": "warn",
         "use-isnan": "error",
         "valid-typeof": "error",
-        "@typescript-eslint/no-shadow": "warn",
+        "no-shadow": "warn",
         eqeqeq: "warn",
         "no-multi-assign": "warn",
         "no-else-return": "warn",
@@ -131,6 +120,12 @@ const config: OxlintConfig = {
             },
         },
         {
+            files: ["src/**/*", "tests/**/*"],
+            rules: {
+                "import/no-relative-parent-imports": "error",
+            },
+        },
+        {
             files: ["scripts/**/*.ts"],
             rules: {
                 "no-console": "off",
@@ -139,4 +134,6 @@ const config: OxlintConfig = {
     ],
 };
 
-export default config;
+export default function createOxlintConfig(): OxlintConfig {
+    return structuredClone(defaults);
+}

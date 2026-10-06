@@ -1,7 +1,8 @@
-import base from "./src/oxfmt/index.ts";
 import { defineConfig } from "oxfmt";
 
+import base from "./src/oxfmt/index.ts";
+
 export default defineConfig({
-    ...base,
+    ...base(),
     ignorePatterns: ["pnpm-lock.yaml", "LICENSE"],
 });
