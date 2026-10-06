@@ -40,8 +40,5 @@ const defaults: OxfmtConfig = {
 };
 
 export default function createOxfmtConfig(): OxfmtConfig {
-    return {
-        ...defaults,
-        overrides: [...(defaults.overrides ?? [])],
-    };
+    return structuredClone(defaults);
 }

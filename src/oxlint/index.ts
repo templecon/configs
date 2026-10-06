@@ -135,9 +135,5 @@ const defaults: OxlintConfig = {
 };
 
 export default function createOxlintConfig(): OxlintConfig {
-    return {
-        ...defaults,
-        rules: { ...defaults.rules },
-        overrides: [...(defaults.overrides ?? [])],
-    };
+    return structuredClone(defaults);
 }
