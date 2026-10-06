@@ -5,6 +5,7 @@ export default defineConfig({
     dts: true,
     entry: {
         "oxfmt/index": "src/oxfmt/index.ts",
+        "oxfmt/frontend": "src/oxfmt/frontend.ts",
         "oxlint/frontend": "src/oxlint/frontend.ts",
         "oxlint/index": "src/oxlint/index.ts",
     },
