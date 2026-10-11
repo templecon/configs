@@ -5,7 +5,10 @@
         "noEmit": true,
         "skipLibCheck": true,
         "strict": true,
-        "target": "ES2024"
+        "target": "ESNext",
+        "types": ["node"],
+        "allowImportingTsExtensions": true
     },
-    "include": ["src"]
+    "include": ["src", "tests", "./*.ts"],
+    "exclude": ["tests/invalid.typecheck.ts", "tests/fixtures"]
 }

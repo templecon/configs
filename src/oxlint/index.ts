@@ -1,122 +1,60 @@
 // @concertypin/config/oxlint — Shared base Oxlint ruleset
-// Auto-derived from the 6-way intersection of non-Svelte template aggregators.
+// Based on the 6-way intersection of non-Svelte template aggregators,
+// with shared project rules added on top.
 // Includes cross-template file-pattern exceptions.
 
 import type { OxlintConfig } from "oxlint";
 
+import { javascriptRules, styleRules, typescriptRules } from "./rules.ts";
+
+/**
+ * Base plugins, shared rule groups, and file-specific exceptions.
+ * `env` and `ignorePatterns` apply only when this is the root config:
+ * Oxlint does not inherit them through `extends`.
+ */
 const defaults: OxlintConfig = {
-    plugins: ["unicorn", "typescript", "oxc", "import"],
+    options: {
+        typeAware: true,
+        typeCheck: true,
+        denyWarnings: true,
+        reportUnusedDisableDirectives: "error",
+    },
+    plugins: ["unicorn", "typescript", "oxc", "import", "vitest", "promise"],
+    env: { builtin: true },
+    ignorePatterns: [
+        "**/node_modules/**",
+        "**/dist/**",
+        "**/dist-ts/**",
+        "**/coverage/**",
+        "**/.cache/**",
+        "**/.vscode/**",
+        "**/.git/**",
+    ],
     rules: {
-        "@typescript-eslint/await-thenable": "error",
-        "@typescript-eslint/ban-ts-comment": "warn",
-        "@typescript-eslint/no-array-delete": "error",
-        "@typescript-eslint/no-base-to-string": "error",
-        "@typescript-eslint/no-duplicate-enum-values": "error",
-        "@typescript-eslint/no-duplicate-type-constituents": "warn",
-        "@typescript-eslint/no-empty-object-type": "warn",
-        "@typescript-eslint/no-explicit-any": "warn",
-        "@typescript-eslint/no-extra-non-null-assertion": "warn",
-        "@typescript-eslint/no-floating-promises": "error",
-        "@typescript-eslint/no-for-in-array": "error",
-        "@typescript-eslint/no-implied-eval": "error",
-        "@typescript-eslint/no-misused-new": "error",
-        "@typescript-eslint/no-misused-promises": "error",
-        "@typescript-eslint/no-namespace": "warn",
-        "@typescript-eslint/no-non-null-asserted-optional-chain": "error",
-        "@typescript-eslint/no-redundant-type-constituents": "warn",
-        "@typescript-eslint/no-require-imports": "warn",
-        "@typescript-eslint/no-this-alias": "warn",
-        "@typescript-eslint/no-unnecessary-type-assertion": "warn",
-        "@typescript-eslint/no-unnecessary-type-constraint": "warn",
-        "@typescript-eslint/no-unsafe-argument": "error",
-        "@typescript-eslint/no-unsafe-assignment": "error",
-        "@typescript-eslint/no-unsafe-call": "error",
-        "@typescript-eslint/no-unsafe-declaration-merging": "error",
-        "@typescript-eslint/no-unsafe-enum-comparison": "error",
-        "@typescript-eslint/no-unsafe-function-type": "error",
-        "@typescript-eslint/no-unsafe-member-access": "error",
-        "@typescript-eslint/no-unsafe-return": "error",
-        "@typescript-eslint/no-unsafe-unary-minus": "error",
-        "@typescript-eslint/no-wrapper-object-types": "error",
-        "@typescript-eslint/only-throw-error": "warn",
-        "@typescript-eslint/prefer-as-const": "warn",
-        "@typescript-eslint/prefer-namespace-keyword": "warn",
-        "@typescript-eslint/prefer-promise-reject-errors": "warn",
-        "@typescript-eslint/require-await": "warn",
-        "@typescript-eslint/restrict-plus-operands": "error",
-        "@typescript-eslint/restrict-template-expressions": "warn",
-        "@typescript-eslint/triple-slash-reference": "warn",
-        "@typescript-eslint/unbound-method": "error",
-        "constructor-super": "off",
-        "for-direction": "error",
-        "no-array-constructor": "error",
-        "no-async-promise-executor": "error",
-        "no-case-declarations": "warn",
-        "no-compare-neg-zero": "error",
-        "no-cond-assign": "error",
-        "no-constant-binary-expression": "error",
-        "no-constant-condition": "warn",
-        "no-control-regex": "warn",
-        "no-debugger": "warn",
-        "no-dupe-else-if": "error",
-        "no-duplicate-case": "error",
-        "no-empty": "warn",
-        "no-empty-character-class": "error",
-        "no-empty-pattern": "warn",
-        "no-empty-static-block": "warn",
-        "no-ex-assign": "error",
-        "no-extra-boolean-cast": "warn",
-        "no-fallthrough": "warn",
-        "no-invalid-regexp": "error",
-        "no-irregular-whitespace": "warn",
-        "no-loss-of-precision": "error",
-        "no-misleading-character-class": "error",
-        "no-nonoctal-decimal-escape": "error",
-        "no-prototype-builtins": "warn",
-        "no-regex-spaces": "warn",
-        "no-self-assign": "warn",
-        "no-shadow-restricted-names": "error",
-        "no-sparse-arrays": "error",
-        "no-unassigned-vars": "warn",
-        "no-unsafe-finally": "error",
-        "no-unsafe-optional-chaining": "error",
-        "no-unused-expressions": "warn",
-        "no-unused-labels": "warn",
-        "no-unused-private-class-members": "warn",
-        "no-unused-vars": "warn",
-        "no-useless-backreference": "error",
-        "no-useless-catch": "warn",
-        "no-useless-escape": "warn",
-        "no-var": "error",
-        "prefer-const": "warn",
-        "prefer-rest-params": "warn",
-        "prefer-spread": "warn",
-        "preserve-caught-error": "warn",
-        "require-yield": "warn",
-        "use-isnan": "error",
-        "valid-typeof": "error",
-        "no-shadow": "warn",
-        eqeqeq: "warn",
-        "no-multi-assign": "warn",
-        "no-else-return": "warn",
-        "no-lonely-if": "warn",
-        "no-useless-return": "warn",
-        "no-eval": "warn",
-        "no-caller": "warn",
-        "no-extend-native": "warn",
-        "no-extra-bind": "warn",
-        "no-proto": "warn",
-        "no-sequences": "warn",
-        "no-useless-concat": "warn",
-        "no-useless-rename": "warn",
-        "prefer-template": "warn",
-        "object-shorthand": "warn",
+        ...typescriptRules,
+        ...javascriptRules,
+        ...styleRules,
     },
     overrides: [
         {
+            files: ["tests/**/*"],
+            rules: {
+                "typescript/no-unsafe-argument": "off",
+                "typescript/no-unsafe-assignment": "off",
+                "typescript/no-unsafe-call": "off",
+                "typescript/no-unsafe-member-access": "off",
+                "typescript/no-unsafe-return": "off",
+                "typescript/no-unsafe-unary-minus": "off",
+            },
+        },
+        {
+            // Declarations describe external or generated shapes:
+            // `any` models untyped APIs, and empty interfaces merge declarations.
             files: ["**/*.d.ts"],
             rules: {
                 "no-unused-vars": "off",
+                "@typescript-eslint/no-explicit-any": "off",
+                "@typescript-eslint/no-empty-object-type": "off",
             },
         },
         {
@@ -134,6 +72,10 @@ const defaults: OxlintConfig = {
     ],
 };
 
+/**
+ * Creates the shared base Oxlint configuration.
+ * @returns A deep copy that callers can customize without affecting other calls.
+ */
 export default function createOxlintConfig(): OxlintConfig {
     return structuredClone(defaults);
 }

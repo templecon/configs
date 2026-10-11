@@ -4,5 +4,6 @@ import base from "./src/oxfmt/index.ts";
 
 export default defineConfig({
     ...base(),
-    ignorePatterns: ["pnpm-lock.yaml", "LICENSE"],
+    // Pack-check fixtures are deliberately unformatted Oxfmt inputs.
+    ignorePatterns: ["pnpm-lock.yaml", "LICENSE", "tests/fixtures/**"],
 });
