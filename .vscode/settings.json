@@ -2,5 +2,8 @@
     "[github-actions-workflow][yaml]": {
         "editor.defaultFormatter": "oxc.oxc-vscode",
         "editor.tabSize": 2
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "oxc.oxc-vscode"
     }
 }

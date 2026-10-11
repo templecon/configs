@@ -2,6 +2,7 @@
 
 import type { OxfmtConfig } from "oxfmt";
 
+/** Shared formatting defaults with YAML, JSONC, and source import overrides. */
 const defaults: OxfmtConfig = {
     arrowParens: "always",
     endOfLine: "lf",
@@ -39,6 +40,10 @@ const defaults: OxfmtConfig = {
     ],
 };
 
+/**
+ * Creates the shared base Oxfmt configuration.
+ * @returns A deep copy that callers can customize without affecting other calls.
+ */
 export default function createOxfmtConfig(): OxfmtConfig {
     return structuredClone(defaults);
 }
