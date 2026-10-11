@@ -39,10 +39,14 @@ const projectDirectory = join(temporaryRoot, "project");
 /** pnpm entry point supplied by the parent package script. */
 const pnpmScript = process.env.npm_execpath;
 assert.ok(pnpmScript, "pnpm did not expose npm_execpath");
-/** Runs a standalone pnpm executable directly, or its JavaScript entry point via Node. */
-const pnpmCommand = pnpmScript.toLowerCase().endsWith(".exe")
-    ? { executable: pnpmScript, prefixArguments: [] }
-    : { executable: process.execPath, prefixArguments: [pnpmScript] };
+/**
+ * Runs a JavaScript entry point via Node, and anything else directly.
+ * pnpm 12 ships a standalone binary: `pnpm.exe` on Windows and an
+ * extensionless `pnpm` on Linux and macOS.
+ */
+const pnpmCommand = /\.[cm]?js$/iu.test(pnpmScript)
+    ? { executable: process.execPath, prefixArguments: [pnpmScript] }
+    : { executable: pnpmScript, prefixArguments: [] };
 
 /**
  * Runs a pnpm setup command and throws if it fails.
