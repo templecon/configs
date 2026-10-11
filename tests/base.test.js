@@ -322,7 +322,11 @@ describe("@concertypin/config/oxlint direct config usage", () => {
             "vitest",
             "promise",
         ]);
-        assert.equal(resolved.rules["typescript/no-floating-promises"], "deny");
+        // This repository's root config adds options to the rule, so compare severity only.
+        assert.equal(
+            resolved.rules["typescript/no-floating-promises"][0],
+            "deny"
+        );
         assert.equal(resolved.rules["typescript/no-deprecated"], "deny");
         assert.equal(
             resolved.rules["oxc/bad-array-method-on-arguments"],

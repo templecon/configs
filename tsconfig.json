@@ -7,7 +7,14 @@
         "strict": true,
         "target": "ESNext",
         "types": ["node"],
-        "allowImportingTsExtensions": true
+        "allowImportingTsExtensions": true,
+        "allowJs": true,
+        "paths": {
+            "@concertypin/config/oxlint": ["./src/oxlint/index.ts"],
+            "@concertypin/config/oxlint/frontend": ["./src/oxlint/frontend.ts"],
+            "@concertypin/config/oxfmt": ["./src/oxfmt/index.ts"],
+            "@concertypin/config/oxfmt/frontend": ["./src/oxfmt/frontend.ts"]
+        }
     },
     "include": ["src", "tests", "./*.ts"],
     "exclude": ["tests/invalid.typecheck.ts", "tests/fixtures"]
